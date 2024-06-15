@@ -1,0 +1,67 @@
+a, a:hover {
+	text-decoration: none;
+}
+body{
+	background-color: #fff;
+}
+
+header {
+	height: 500px;
+	min-height: 500px;
+	background-image: url(../img/header-background.png);
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: top right;
+}
+header a:hover{
+	color:#fff;
+	font-weight: bolder;
+}
+.hgroup {
+	padding-top: 7%;
+    padding-left: 10%;
+    position: relative;
+    width: 100%;
+    min-height: 1px;
+}
+.hgroup h2{
+	color: #f69f8a;
+	font-size: 3em;
+}
+img.img-logo-name{
+	width: 400px;
+}
+.card-list{
+	background-color: red;
+}
+.card-list-item:hover{
+	cursor: pointer;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px #00000024;
+}
+/*---RESPONSIVE---*/
+@media only screen and (max-width: 746px){
+	.hgroup{
+		width: 70%;
+	}
+	.hgroup h1{
+		font-size: 2em;
+	}
+	.hgroup h4{
+		font-size: 1.5em;
+	}
+	.card{
+		width: 100%;
+	}
+}
+@media only screen and (max-width: 500px){
+	.hgroup h2{
+		font-size: 2.5em;
+	}
+}
+@media (min-width: 768px){
+	.menu-lista h3 {
+		font-size: 1.5em;
+	}
+}
