@@ -88,7 +88,7 @@ use App\Services\CollaboratorService;
 use App\Services\InstitutionService;
 use App\Services\TeacherService;
 
-use Auth;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class AdminsController.
@@ -349,7 +349,7 @@ class AdminsController extends Controller
             ->select('id','component')
             ->get();
 
-        $exams = DB::table('exams')
+        /*$exams = DB::table('exams')
             ->join('curricular_components','curricular_components.id','=','exams.curricular_component_id')
             ->join('teachers','teachers.id','=','exams.teacher_id')
             ->join('exam_types','exams.exam_type_id','=','exam_types.id')
@@ -359,7 +359,7 @@ class AdminsController extends Controller
             ->where('exams.school_year_id',$school_year_id->id)
             ->select('exams.id','exams.exam','exams.exam_date','exams.institution_class_id','exams.division_id','exams.curricular_component_id','exams.value','exam_types.exam_type','teachers.name','curricular_components.component','institution_school_year_divisions.division','institution_classes.institution_class')
             ->orderBy('exam_date','ASC')
-            ->get();
+            ->get();*/
 
         $institution_classes_a  = $this->institution_class_repository->findWhere([
             'institution_id' => $online_collaborator_institution_id,
@@ -398,21 +398,21 @@ class AdminsController extends Controller
         }
 
 
-        $previsions = DB::table('prevision_setups')
+        /*$previsions = DB::table('prevision_setups')
             ->join('curricular_components','curricular_components.id','=','prevision_setups.curricular_component_id')
             ->join('grades','grades.id','=','prevision_setups.grade_id')
             ->where('prevision_setups.institution_id','=',$online_collaborator_institution_id)
             ->select('prevision_setups.id','prevision_setups.curricular_component_id','curricular_components.component','prevision_setups.total_hours','grades.grade')
             ->orderBy('grades.grade','ASC')
             ->orderBy('curricular_components.component','ASC')
-            ->get();
+            ->get();*/
 
-        $schedules_by_class = DB::table('institution_class_schedules')
+        /*$schedules_by_class = DB::table('institution_class_schedules')
             ->distinct()
-            ->get('institution_class_id');
+            ->get('institution_class_id');*/
 
         $schedule = [];
-        foreach ($schedules_by_class as $data) {
+        /*foreach ($schedules_by_class as $data) {
             $schedule[$data->institution_class_id] = DB::table('institution_class_schedules')
                 ->join('institution_classes','institution_classes.id','=','institution_class_schedules.institution_class_id')
                 ->join('curricular_components','curricular_components.id','=','institution_class_schedules.curricular_component_id')
@@ -422,14 +422,14 @@ class AdminsController extends Controller
                 ->orderBy('institution_class_schedules.sequence','ASC')
                 ->orderBy('institution_class_schedules.hour','ASC')
                 ->get();
-        }
+        }*/
         //dd($schedule);
-        $divisions = DB::table('institution_school_year_divisions')
+        /*$divisions = DB::table('institution_school_year_divisions')
             ->where('institution_id','=',$online_collaborator_institution_id)
             ->get();
         $exam_types = DB::table('exam_types')
             ->where('institution_id','=',$online_collaborator_institution_id)
-            ->get();
+            ->get();*/
 
         //verify and redirect
         if($admin_type_choice_data->admin_type_id == 1){
@@ -551,6 +551,7 @@ class AdminsController extends Controller
             'institution_id'      => $online_collaborator_institution_id,
             'collaborator_status' => 'Active'
         ])->all();
+        //dd($active_collaborators);
 
         $online_institution_data  = $this->institution_repository->findWhere([
             'id'    => $online_collaborator_institution_id
@@ -560,9 +561,7 @@ class AdminsController extends Controller
             'institution_id'     => $online_collaborator_institution_id,
             'school_year_status' => 'active'
         ])->first();
-
-        return redirect()->route('admin.store.school-year');
-        /*
+        //dd($school_years);
         $current_school_year = $school_years->year;
 
         if ($school_years==null) {
@@ -593,7 +592,7 @@ class AdminsController extends Controller
             }
         }
 
-        return redirect()->route('admin.show.dashboard',['year' => $current_school_year]);*/
+        return redirect()->route('admin.show.dashboard',['year' => $current_school_year]);
     }
     
     /**
